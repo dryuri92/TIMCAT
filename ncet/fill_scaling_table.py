@@ -166,7 +166,7 @@ def fill_scaling_table(path, fname, base, scalars_dict, scaling_table=None):
         scaling_table.set_index("Account", inplace=True)
 
     # Drop NaN-indexed rows immediately — root cause of the ValueError.
-    scaling_table = _fill_nan_index_rows(scaling_table, "scaling_table")
+    #scaling_table = _fill_nan_index_rows(scaling_table, "scaling_table")
 
     scaling_table["Option"]                      = 1
     scaling_table["New Base Unit Value"]         = 0.0
