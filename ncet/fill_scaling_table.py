@@ -152,7 +152,6 @@ def _safe_divide(numerator, denominator, label: str = "") -> float:
 # ─────────────────────────────────────────────────────────────────────────────
 
 def fill_scaling_table(path, fname, base, scalars_dict, scaling_table=None):
-
     # ── Load or prepare the scaling table ────────────────────────────────────
     if scaling_table is None:
         scaling_table = pd.read_csv(
@@ -219,7 +218,7 @@ def fill_scaling_table(path, fname, base, scalars_dict, scaling_table=None):
     df26 = _load_sheet("26-HeatRejectionSystem")
 
     plant_characteristics["New Bldg"] = df21["SSCs moved to"]
-
+    
     if "Rebar density" in df21.columns and any(df21["Rebar density"] != "Default"):
         plant_characteristics["Rebar table"] = (
             df21.loc[df21["Rebar density"] != "Default", "Rebar density"].to_dict()
