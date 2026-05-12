@@ -152,8 +152,6 @@ def _safe_divide(numerator, denominator, label: str = "") -> float:
 # ─────────────────────────────────────────────────────────────────────────────
 
 def fill_scaling_table(path, fname, base, scalars_dict, scaling_table=None):
-    print("DEBUG-1", scaling_table)
-
     # ── Load or prepare the scaling table ────────────────────────────────────
     if scaling_table is None:
         scaling_table = pd.read_csv(
@@ -220,7 +218,7 @@ def fill_scaling_table(path, fname, base, scalars_dict, scaling_table=None):
     df26 = _load_sheet("26-HeatRejectionSystem")
 
     plant_characteristics["New Bldg"] = df21["SSCs moved to"]
-
+    
     if "Rebar density" in df21.columns and any(df21["Rebar density"] != "Default"):
         plant_characteristics["Rebar table"] = (
             df21.loc[df21["Rebar density"] != "Default", "Rebar density"].to_dict()
@@ -242,7 +240,6 @@ def fill_scaling_table(path, fname, base, scalars_dict, scaling_table=None):
     # ═════════════════════════════════════════════════════════════════════════
     #  Account 21 — Structures & Improvements
     # ═════════════════════════════════════════════════════════════════════════
-    print("Evaluating account 21: Structures & Improvements")
 
     total_thermal_power = _get_pc(
         plant_characteristics, "Total Plant Thermal Power (MWt)",
@@ -408,7 +405,6 @@ def fill_scaling_table(path, fname, base, scalars_dict, scaling_table=None):
 
         else:
             print(f"\t  [WARN] Unknown method {method!r} for {account!r} — skipping")
-    print("DEBUG-2", scaling_table)
     # ═════════════════════════════════════════════════════════════════════════
     #  Accounts 22–26
     # ═════════════════════════════════════════════════════════════════════════
@@ -479,14 +475,11 @@ def fill_scaling_table(path, fname, base, scalars_dict, scaling_table=None):
 
     # ── Multipliers & material uncertainty ───────────────────────────────────
     scaling_table = cost_multipliers(scaling_table, scalars_dict, plant_characteristics)
-    print("DEBUG-3", scaling_table)
     scaling_table = material_use_uncertainty(scaling_table, scalars_dict)
-    print("DEBUG-4", scaling_table)
     # ═════════════════════════════════════════════════════════════════════════
     #  Compute Scaling Factors
     # ════════════════════════════════════
     scaling_table["Scaling Factor"] = 0.0
-    print("DEBUG-5", scaling_table)
     acc1 = _clean_mask(scaling_table["Option"] == 1, scaling_table.index)
     acc2 = _clean_mask(scaling_table["Option"] == 2, scaling_table.index)
     acc3 = _clean_mask(scaling_table["Option"] == 3, scaling_table.index)
