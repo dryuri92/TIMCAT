@@ -362,7 +362,7 @@ if __name__ == "__main__":
     plant_fname = "inputfile_" + plant + ".xlsx"
 
     param_fname = "input_scaling_exponents.xlsx"
-    orders = 10
+    orders = 1
 
     mc_runs = 1  # choose 1 to run the reference values
     # cProfile.run('run_ncet(plant, path, orders, plant_fname, param_fname, BASIS_FNAME, mc_runs=mc_runs, make_building_table=True, save_all=True)')
